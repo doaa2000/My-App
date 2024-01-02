@@ -5,6 +5,7 @@ import 'package:my_app/core/utils/colors.dart';
 import 'package:my_app/core/utils/constatnts.dart';
 import 'package:my_app/core/utils/reusable_components.dart';
 import 'package:my_app/features/login_screen/presentiation/manager/auth_cubit/auth_cubit.dart';
+import 'package:my_app/features/login_screen/presentiation/views/widgets/bottom_nav_bar.dart';
 import 'package:my_app/features/login_screen/presentiation/views/widgets/profile_view.dart';
 
 class LoginView extends StatelessWidget {
@@ -15,17 +16,16 @@ class LoginView extends StatelessWidget {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
     final GlobalKey<FormState> formKey = GlobalKey();
-    return BlocConsumer<authCubit, LoginState>(
+    return BlocConsumer<authCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginFailure) {
           showToastMessage(message: state.errorMessage, isError: true);
-          print(state.errorMessage);
         }
         if (state is LoginSuccess) {
           showToastMessage(
               message: 'You are logged in successfully', isError: false);
 
-          Get.offAll(() => const ProfileView());
+          Get.offAll(() => const BottomNavBar());
         }
       },
       builder: (context, state) {
@@ -155,9 +155,7 @@ class LoginView extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      Get.offAll(() => const LoginView());
-                                    },
+                                    onPressed: () {},
                                     child: CustomTextWidget(
                                       text: "Sign up",
                                       color: AppColors.primaryColor,
